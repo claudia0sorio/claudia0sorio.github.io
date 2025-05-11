@@ -7,6 +7,52 @@
         <title>
             Pictures - Claudia's Website
         </title>
+        <style>
+            /* Horizontal scrolling gallery */
+            .scrolling-wrapper {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: 10px;
+                background: #c0c0c0;
+                border: inset 2px;
+            }
+            
+            .card {
+                display: inline-block;
+                margin-right: 15px;
+                border: outset 2px;
+                background: white;
+                padding: 5px;
+            }
+            
+            .card img {
+                width: 200px;
+                height: 150px;
+                object-fit: cover;
+            }
+            
+            .card p {
+                margin: 5px 0;
+                white-space: normal;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            /* Add Windows 98 scrollbar styling */
+            .scrolling-wrapper::-webkit-scrollbar {
+                height: 16px;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+        </style>
     </head>
     <body>
         <div class="window">
@@ -20,18 +66,52 @@
             </div>
             <div class="window-body">
                 <menu role="tablist">
-                    <li role="tab"><a href="index.html">About Me</a></li>
+                    <li role="tab"><a href="index.html">Home</a></li>
+                    <li role="tab"><a href="about.html">About Me</a></li>
                     <li role="tab"><a href="thoughts.html">Thoughts</a></li>
                     <li role="tab"><a href="music.html">Music</a></li>
                     <li role="tab" aria-selected="true"><a href="pictures.html">Pictures</a></li>
                     <li role="tab"><a href="videos.html">Videos</a></li>
                 </menu>
                 
-                <div class="content">
-                    <h2>Pictures</h2>
-                    <p>Browse my photo gallery.</p>
-                    <!-- Photo gallery would go here -->
+                <h2>Pictures</h2>
+                <p>i have a shit ton of digital cameras. (i like how old pictures look) <br> will build a gallery here</p>
+                
+                <div class="scrolling-wrapper">
+                    <div class="card">
+                        <img src="images/1.JPG" alt="Description 1">
+                        <p>Cool picture 1</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+2" alt="Description 2">
+                        <p>Cool picture 2</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+3" alt="Description 3">
+                        <p>Cool picture 3</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+4" alt="Description 4">
+                        <p>Cool picture 4</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+5" alt="Description 5">
+                        <p>Cool picture 5</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+6" alt="Description 6">
+                        <p>Cool picture 6</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+7" alt="Description 7">
+                        <p>Cool picture 7</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150?text=Image+8" alt="Description 8">
+                        <p>Cool picture 8</p>
+                    </div>
                 </div>
+            </div>
             </div>
         </div>
 

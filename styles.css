@@ -8,9 +8,13 @@
 }
 
 .window {
-    height: calc(100vh - 25px) !important;
+    height: calc(100vh - 20px) !important;
 }
 
 menu[role="tablist"] li a {
     font-size: 18px;
+}
+
+p {
+    font-size: 17px;
 }
