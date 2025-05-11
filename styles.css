@@ -6,3 +6,8 @@
     /* Alternative: Pink gradient */
     background: linear-gradient(90deg, #ff69b4, #ffb6c1) !important;
 }
+
+.window {
+    height: 700px;
+    margin: 0;
+}
