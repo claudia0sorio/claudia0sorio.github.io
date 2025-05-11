@@ -16,5 +16,5 @@ menu[role="tablist"] li a {
 }
 
 p {
-    font-size: 17px;
+    font-size: 17px !important;
 }
