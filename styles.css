@@ -1,0 +1,8 @@
+
+.title-bar {
+    /* Pink title bar */
+    /* background: hotpink !important; */
+    
+    /* Alternative: Pink gradient */
+    background: linear-gradient(90deg, #ff69b4, #ffb6c1) !important;
+}
