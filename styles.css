@@ -1,12 +1,16 @@
 
 .title-bar {
-    /* Pink title bar */
+    /* Pink */
     /* background: hotpink !important; */
     
-    /* Alternative: Pink gradient */
+    /* Pink gradient */
     background: linear-gradient(90deg, #ff69b4, #ffb6c1) !important;
 }
 
 .window {
-    height: calc(100vh - 50px) !important;
+    height: calc(100vh - 25px) !important;
+}
+
+menu[role="tablist"] li a {
+    font-size: 18px;
 }
