@@ -18,3 +18,15 @@ menu[role="tablist"] li a {
 p {
     font-size: 17px !important;
 }
+
+#me {
+    width: 350px; 
+    height: auto; 
+}
+
+#aboutMe {
+    display: flex;
+    align-items: flex-start;
+    margin: 15px 0;
+    gap: 25px; 
+}
