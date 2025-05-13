@@ -7,6 +7,63 @@
         <title>
             Music - Claudia's Website
         </title>
+        <style>
+            /* Horizontal scrolling gallery */
+            .scrolling-wrapper {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: 10px;
+                background: #c0c0c0;
+                border: inset 2px;
+            }
+            
+            .card {
+                display: inline-block;
+                margin-right: 15px;
+                border: outset 2px;
+                background: white;
+                padding: 5px;
+            }
+            
+            .card img {
+                width: 200px;
+                height: 150px;
+                object-fit: cover;
+            }
+            
+            .card p {
+                margin: 5px 0;
+                white-space: normal;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            /* Video card specific */
+            .video-card {
+                width: 320px;
+            }
+            
+            .video-card video {
+                width: 320px;
+                height: 240px;
+                background: black;
+            }
+
+            /* Add Windows 98 scrollbar styling */
+            .scrolling-wrapper::-webkit-scrollbar {
+                height: 16px;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+        </style>
     </head>
     <body>
         <div class="window">
@@ -38,7 +95,7 @@
                     <p>might catalog all my cds, vinyls, & 8tracks or something here. i collect them.</p>
 
                     <p>Here's my <a href="https://open.spotify.com/user/claudiiaaa14" target="_blank">spotify</a> too.</p>
-                    <p>i have a lot of playlists. <br>im very proud.</p>
+                    <p>i have a lot of playlists. about 560, check them out. <br>im very proud.</p>
                     <div id="flex">
                         <img id="me" src="images/songs.png">
                         <p>here are some songs ive listening to a lot lately.</p>
