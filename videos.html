@@ -7,6 +7,63 @@
         <title>
             Videos - Claudia's Website
         </title>
+        <style>
+            /* Horizontal scrolling gallery */
+            .scrolling-wrapper {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: 10px;
+                background: #c0c0c0;
+                border: inset 2px;
+            }
+            
+            .card {
+                display: inline-block;
+                margin-right: 15px;
+                border: outset 2px;
+                background: white;
+                padding: 5px;
+            }
+            
+            .card img {
+                width: 200px;
+                height: 150px;
+                object-fit: cover;
+            }
+            
+            .card p {
+                margin: 5px 0;
+                white-space: normal;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            /* Video card specific */
+            .video-card {
+                width: 320px;
+            }
+            
+            .video-card video {
+                width: 320px;
+                height: 240px;
+                background: black;
+            }
+
+            /* Add Windows 98 scrollbar styling */
+            .scrolling-wrapper::-webkit-scrollbar {
+                height: 16px;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+        </style>
     </head>
     <body>
         <div class="window">
@@ -31,6 +88,76 @@
                 <div class="content">
                     <h2>Videos</h2>
                     <p>I also have a camcorder. i record random little videos or vlogs sometimes. <br> that'll go here</p>
+
+                    <!-- Gallery Section 1: JULY 2024 -->
+                    <div class="gallery-section">
+                        <h4>July Fourth 2024</h4>
+                        <div class="scrolling-wrapper">
+                           <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/1.mp4" type="video/mp4">
+                                </video>
+                                <p>da city</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/2.mp4" type="video/mp4">
+                                </video>
+                                <p>me n jesse got pierogies</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/3.mp4" type="video/mp4">
+                                </video>
+                                <p>this video is so loud for no reason</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/4.mp4" type="video/mp4">
+                                </video>
+                                <p>subway</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/5.mp4" type="video/mp4">
+                                </video>
+                                <p>so retro</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/6.mp4" type="video/mp4">
+                                </video>
+                                <p>olivia, gabby & sophia</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/7.mp4" type="video/mp4">
+                                </video>
+                                <p>ai hamburger</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/8.mp4" type="video/mp4">
+                                </video>
+                                <p>the duck</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/9.mp4" type="video/mp4">
+                                </video>
+                                <p>my bday cake, it was oreo tres leches.</p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <source src="images/nycfourth/10.mp4" type="video/mp4">
+                                </video>
+                                <p>the highway LMAO, i just liked the vibe</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
