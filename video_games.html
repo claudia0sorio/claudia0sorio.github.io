@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Permissions-Policy" content="autoplay=*, fullscreen=*, encrypted-media=*, accelerometer=*, gyroscope=*">
+        <link rel="stylesheet" href="https://unpkg.com/98.css">
+        <link rel="stylesheet" href="styles.css">
+        <title>
+            Thoughts - Claudia's Website
+        </title>
+        <style>
+            /* Horizontal scrolling gallery */
+            .scrolling-wrapper {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: 10px;
+                background: #c0c0c0;
+                border: inset 2px;
+            }
+            
+            .card {
+                display: inline-block;
+                margin-right: 15px;
+                border: outset 2px;
+                background: white;
+                padding: 5px;
+            }
+            
+            .card img {
+                width: 200px;
+                height: 150px;
+                object-fit: cover;
+            }
+            
+            .card p {
+                margin: 5px 0;
+                white-space: normal;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            /* Video card specific */
+            .video-card {
+                width: 320px;
+            }
+            
+            .video-card video {
+                width: 320px;
+                height: 240px;
+                background: black;
+            }
+
+            /* Add Windows 98 scrollbar styling */
+            .scrolling-wrapper::-webkit-scrollbar {
+                height: 16px;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+            
+            .scrolling-wrapper::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">claudia's website</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <menu role="tablist">
+                    <li role="tab"><a href="index.html">Home</a></li>
+                    <li role="tab"><a href="about.html">About Me</a></li>
+                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <li role="tab"><a href="music.html">Music</a></li>
+                    <li role="tab"><a href="pictures.html">Pictures</a></li>
+                    <li role="tab"><a href="videos.html">Videos</a></li>
+                    <li role="tab"><a href="movies.html">Movies</a></li>
+                    <li role="tab" aria-selected="true"><a href="video_games.html">Video Games</a></li>
+                    <li role="tab"><a href="sewing.html">Sewing</a></li>
+                    <li role="tab"><a href="maker_projects.html">Maker Projects</a></li>
+                </menu>
+                
+                <div class="content">
+                    <h2>Video Games</h2>
+                    <p>I LOVE VIDEO GAMES!!!! all kinds, most kinds, except anything fantasy (sorry) theyre just kinda cringe.</p>
+                    <p>I'll probably recap some games im playing or things im excited for.</p>
+                    <p>I'm almost done with max payne finally, i think i got about 2 more hours on it probably. sam lake is so cool, i want to be him one day.</p>
+                    <p>I'm super stuck on dead space 2 rn. those fucking screaming crying babies keep killing me and i have like no supplies. i think i soft locked myself tbh. ill deal with that later.</p>
+                    <p>im also pretty excited for Cronos: The New Dawn, i hope it comes out later this year. the trailer looked pretty cool.</p>
+                    <br>
+
+                    <p>OMG i can also link some youtube videos ive watched recently, theyre basically all about games.</p>
+                    <div class="gallery-section">
+                        <div class="scrolling-wrapper">
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/C8YtdC8mxTU?si=mAbvd2kd-OWa_Jk7" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>graphics stuff</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/EW2xTGY1X1c?si=qA7v75F-AI1ijHWl" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>ABSOLUTELY LOVED this one. games abt letting go.</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/D7_qv9U8wWI?si=wyVu6fkxZqZzy416" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>responsibility of a sequel, RE2</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/tXfwvohROPA?si=BEYUpVI8_X6y5D0L" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>path tracing in Alan Wake 2</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/0FVC_KFpfXI?si=Cz0az9h-3wRZmtvz" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>control - complete retrospective</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://youtu.be/_PiiXM51oBo?si=4j1YibNzXnrCuyp_" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>emotion engine</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCM Music Player https://www.scmplayer.net -->
+        <script type="text/javascript" src="https://www.scmplayer.net/script.js" 
+        data-config="{'skin':'skins/aquaBlue/skin.css','volume':50,'autoplay':false,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':true,'playlist':[{'title':'tekken beach stage','url':'https://www.youtube.com/watch?v=T093v2hYWL8'}]}" ></script>
+        <!-- SCM Music Player script end -->
+    </body>
+</html>
