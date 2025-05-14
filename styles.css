@@ -11,6 +11,18 @@
     height: calc(100vh - 20px) !important;
 }
 
+#picsWindow {
+    height: 1000px !important;
+}
+
+#gameWindow {
+    height: 800px !important;
+}
+
+#sewWindow {
+    height: 1400px !important;
+}
+
 menu[role="tablist"] li a {
     font-size: 18px;
 }
@@ -29,4 +41,17 @@ p {
     align-items: flex-start;
     margin: 15px 0;
     gap: 25px; 
+}
+
+#sew {
+    width: 220px; 
+    height: auto; 
+}
+
+#middle {
+    width: 90px;
+}
+
+#indent{
+    text-indent: 25px;
 }
