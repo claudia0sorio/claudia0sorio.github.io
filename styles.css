@@ -12,7 +12,7 @@
 }
 
 #picsWindow {
-    height: 1300px !important;
+    height: 2000px !important;
 }
 
 #videoWindow {
@@ -28,7 +28,7 @@
 }
 
 #sewWindow {
-    height: 1400px !important;
+    height: 1900px !important;
 }
 
 menu[role="tablist"] li a {

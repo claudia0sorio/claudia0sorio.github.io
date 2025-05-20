@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Permissions-Policy" content="autoplay=*, fullscreen=*, encrypted-media=*, accelerometer=*, gyroscope=*">
+        <link rel="stylesheet" href="https://unpkg.com/98.css">
+        <link rel="stylesheet" href="styles.css">
+        <title>
+            swag
+        </title>
+        <style>
+            .visitor-counter-section {
+                position: fixed;
+                bottom: 15px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                padding: 5px;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+                font-size: 12px;
+                color: #222222;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .visitor-counter-section h4 {
+                margin: 0;
+                margin-right: 10px;
+                font-size: 14px;
+                font-weight: normal;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">claudia's website</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <menu role="tablist">
+                    <li role="tab"><a href="index.html">Home</a></li>
+                    <li role="tab"><a href="about.html">About Me</a></li>
+                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <li role="tab"><a href="music.html">Music</a></li>
+                    <li role="tab"><a href="pictures.html">Pictures</a></li>
+                    <li role="tab"><a href="videos.html">Videos</a></li>
+                    <li role="tab"><a href="movies.html">Movies</a></li>
+                    <li role="tab"><a href="video_games.html">Video Games</a></li>
+                    <li role="tab"><a href="sewing.html">Sewing</a></li>
+                    <li role="tab"><a href="youtube.html">Youtube</a></li>
+                    <li role="tab"><a href="books.html">Books</a></li>
+                    <li role="tab" aria-selected="true"><a href="feedback.html">Feedback</a></li>
+
+                </menu>
+                
+                <div class="content">
+
+                    <br>
+                    <h3>How am i doing?</h3>
+                    <p> Is this website cool? Does it suck? Is there something i should change?</p>
+                    <p>Let me know below. Maybe i'll listen to it. no promises.</p>
+                    <form id="feedback-form" action="https://formspree.io/f/mjkwzora" method="POST">
+                        <label for="name" style="font-size: 1.2em;">Who are u:</label><br>
+                        <input type="text" id="name" name="name" required><br><br>
+                      
+                        <label for="email" style="font-size: 1.2em;">What's ur email:</label><br>
+                        <input type="email" id="email" name="email" required><br><br>
+                      
+                        <label for="message" style="font-size: 1.2em;">What do you want to tell me:</label><br>
+                        <textarea id="message" name="message" rows="20" cols="100" required></textarea><br><br>
+                      
+                        <button type="submit">Send</button>
+                      </form>
+                      
+                      <div id="thank-you" style="display:none; margin-top: 20px;">
+                        <h3>Your message has been sent.</h3>
+                        <p>Thanks for reaching out. I will maybe reply or maybe just update the website according to your advice. or maybe i'll ignore it.</p>
+                      </div>
+                      
+                      <script>
+                        const form = document.getElementById('feedback-form');
+                        const thankYouMessage = document.getElementById('thank-you');
+                      
+                        form.addEventListener('submit', async (e) => {
+                          e.preventDefault(); // Stop regular form submission
+                          const formData = new FormData(form);
+                      
+                          const response = await fetch(form.action, {
+                            method: form.method,
+                            body: formData,
+                            headers: {
+                              'Accept': 'application/json'
+                            }
+                          });
+                      
+                          if (response.ok) {
+                            form.style.display = 'none';
+                            thankYouMessage.style.display = 'block';
+                          } else {
+                            alert('the form couldnt submit for some reason, maybe try again?');
+                          }
+                        });
+                      </script>
+
+
+                </div>
+            </div>
+              
+        </div>
+
+        <!-- SCM Music Player https://www.scmplayer.net -->
+        <script type="text/javascript" src="https://www.scmplayer.net/script.js" 
+        data-config="{'skin':'skins/aquaBlue/skin.css','volume':50,'autoplay':false,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':true,'playlist':[{'title':'tekken beach stage','url':'https://www.youtube.com/watch?v=T093v2hYWL8'}]}" ></script>
+        <!-- SCM Music Player script end -->
+    </body>                                  
+                                  
+</html>
+
