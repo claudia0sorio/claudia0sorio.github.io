@@ -8,23 +8,27 @@
 }
 
 .window {
-    height: calc(100vh - 20px) !important;
+    height: calc(100vh - 10px) !important;
 }
 
 #picsWindow {
-    height: 2000px !important;
+    height: 2200px !important;
 }
 
 #videoWindow {
-    height: 1500px !important;
+    height: 2200px !important;
 }
 
 #gameWindow {
-    height: 800px !important;
+    height: 1500px !important;
 }
 
 #bookWindow {
-    height: 980px !important;
+    height: 2150px !important;
+}
+
+#musicWindow {
+    height: 1800px !important;
 }
 
 #sewWindow {

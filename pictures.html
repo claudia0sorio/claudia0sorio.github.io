@@ -56,7 +56,111 @@
                 height: 200px;
                 background: black;
             }
+
+
+            .camera-shop {
+                background: linear-gradient(45deg, pink, purple);
+                border: outset 3px;
+                padding: 15px;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+            }
+
+            .shop-counter {
+                height: 150px;
+                display: flex;
+                flex-wrap: nowrap;
+                /* gap: 20px; */
+                justify-content: flex-start;
+                background: #A7C7E7;
+                padding: 15px;
+                border: inset 2px;
+                margin: 10px 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .camera-display {
+                cursor: pointer;
+                transition: transform 0.1s;
+                padding: 10px;
+            }
+
+            .camera-display:hover {
+                transform: scale(1.05);
+            }
+
+            .camera-display.clicked {
+                transform: scale(0.98);
+            }
+
+            .camera-display img {
+                margin-top: 3px;
+                width: 160px;
+                height: auto;
+                display: block;
+            }
+
+            #finepix img {
+                margin-top: -12px;
+                width: 130px;
+                height: auto;
+                display: block;
+            }
+            #nikone43 img {
+                margin-top: -2px;
+                margin-right: -20px;
+                width: 180px;
+                height: auto;
+                display: block;
+            }
+            
+            #insignia img {
+                margin-top: -10px;
+                width: 140px;
+                height: auto;
+                display: block;
+            }
+
+            #canon img {
+                margin-top: -27px;
+                width: 160px;
+                height: auto;
+                display: block;
+            }
+            #nikon img {
+                margin-left: -10px;
+                margin-top: -10px;
+                width: 160px;
+                height: auto;
+                display: block;
+            }
+
+            .inspection-area {
+                background: #A7C7E7;
+                border: inset 2px;
+                text-align: center;
+                min-height: 20px;
+                font-style: italic;
+            }
         </style>
+
+        <script>
+            function inspectCamera(element) {
+                // Remove clicked state from all cameras
+                document.querySelectorAll('.camera-display').forEach(cam => {
+                    cam.classList.remove('clicked');
+                });
+                
+                // Add clicked state to current camera
+                element.classList.add('clicked');
+                
+                const name = element.dataset.name;
+                
+                document.getElementById('inspection').innerHTML = `
+                    <p><strong>${name}</strong></p>
+                `;
+            }
+        </script>
     </head>
     <body>
         <div class="window" id="picsWindow">
@@ -72,7 +176,7 @@
                 <menu role="tablist">
                     <li role="tab"><a href="index.html">Home</a></li>
                     <li role="tab"><a href="about.html">About Me</a></li>
-                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <!-- <li role="tab"><a href="thoughts.html">Thoughts</a></li> -->
                     <li role="tab"><a href="music.html">Music</a></li>
                     <li role="tab" aria-selected="true"><a href="pictures.html">Pictures</a></li>
                     <li role="tab"><a href="videos.html">Videos</a></li>
@@ -86,10 +190,51 @@
                 </menu>
                 
                 <h2>Pictures</h2>
-                <p>i have a shit ton of digital cameras. (i like how old pictures look) so will build a gallery here</p>
-                <br>
+                <p>i have a shit ton of digital cameras (see below). i like how old photos look so will build a gallery here</p>
                 <p>right now its kinda random but ideally they will be categorized and in chronological order. im just lazy</p>
                 
+
+                <div class="camera-shop">    
+                    <div class="shop-counter">
+                        <div id="nikone43" class="camera-display" onclick="inspectCamera(this)" 
+                            data-name="Nikon Coolpix e4300">
+                            <img src="camera/nikoncoolpixe4300-removebg-preview.png">
+                        </div>
+                        <div class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Sony Cybershot U DSC-U30">
+                            <img src="camera/sonydscu30-removebg-preview.png">
+                        </div>
+                        <div class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Nikon Coolpix S4">
+                            <img src="camera/nikoncoolpixs4-removebg-preview.png">
+                        </div>
+                        <div id="finepix" class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Fujifilm FinePix XP50">
+                            <img src="camera/fujifilmfinepixxp50-removebg-preview.png">
+                        </div>
+                        <div class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Sony Cybershot DSC-P93A">
+                            <img src="camera/sonycybershotdscp93-removebg-preview.png">
+                        </div>
+                        <div id="insignia" class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Insignia NSDSC10A">
+                            <img src="camera/insigniansdsc10a.png">
+                        </div>
+                        <div id="canon" class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Canon PowerShot SD1300 IS">
+                            <img src="camera/canonpowershotsd1300is-removebg-preview.png">
+                        </div>
+                        <div id="nikon" class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Nikon Coolpix 3100">
+                            <img src="camera/nikoncoolpix3100-removebg-preview.png">
+                        </div>
+                    </div>
+                    
+                    <div class="inspection-area" id="inspection">
+                        <p><strong>Nikon Coolpix e4300</strong></p>
+                    </div>
+                </div>
+
                 <!-- Gallery Section 1: Jan 2023 HS Girlies -->
                 <div class="gallery-section">
                     <h4>Jan 2023</h4>

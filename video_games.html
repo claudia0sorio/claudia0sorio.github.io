@@ -5,9 +5,66 @@
         <link rel="stylesheet" href="https://unpkg.com/98.css">
         <link rel="stylesheet" href="styles.css">
         <title>
-            swag
+            Video Games - Claudia's Website
         </title>
         <style>
+            /* Status feed styling */
+            .status-feed {
+                height: 400px;
+                overflow-y: auto;
+                padding: 10px;
+                background-color: white;
+                border: inset 2px;
+                margin-bottom: 15px;
+            }
+
+            .status-card {
+                background-color: #c0c0c0;
+                border: outset 2px;
+                margin-bottom: 15px;
+                padding: 12px;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+                font-size: 12px;
+            }
+
+            .status-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #808080;
+            }
+
+            .status-title {
+                font-weight: bold;
+                color: #000080;
+            }
+
+            .status-timestamp {
+                font-size: 10px;
+                color: #666;
+            }
+
+            .status-content {
+                line-height: 1.4;
+                margin-top: 8px;
+            }
+
+            .reply-card {
+                background-color: #e0e0e0;
+                border: inset 1px;
+                margin-left: 20px;
+                margin-top: 10px;
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            /* YouTube videos section */
+            .youtube-section {
+                margin-top: 20px;
+            }
+
             /* Horizontal scrolling gallery */
             .scrolling-wrapper {
                 overflow-x: auto;
@@ -26,12 +83,6 @@
                 padding: 5px;
             }
             
-            .card img {
-                width: 200px;
-                height: 150px;
-                object-fit: cover;
-            }
-            
             .card p {
                 margin: 5px 0;
                 white-space: normal;
@@ -44,10 +95,17 @@
                 width: 320px;
             }
             
-            .video-card video {
+            .yt-embed {
                 width: 320px;
-                height: 240px;
+                height: 180px;
                 background: black;
+                overflow: hidden;
+            }
+
+            .yt-embed iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
             }
 
             /* Add Windows 98 scrollbar styling */
@@ -62,6 +120,23 @@
             .scrolling-wrapper::-webkit-scrollbar-thumb {
                 background: #dfdfdf;
                 border: outset 2px;
+            }
+
+            .status-feed::-webkit-scrollbar {
+                width: 16px;
+            }
+
+            .status-feed::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+
+            .status-feed::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+
+            .hidden {
+                display: none;
             }
         </style>
     </head>
@@ -79,7 +154,7 @@
                 <menu role="tablist">
                     <li role="tab"><a href="index.html">Home</a></li>
                     <li role="tab"><a href="about.html">About Me</a></li>
-                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <!-- <li role="tab"><a href="thoughts.html">Thoughts</a></li> -->
                     <li role="tab"><a href="music.html">Music</a></li>
                     <li role="tab"><a href="pictures.html">Pictures</a></li>
                     <li role="tab"><a href="videos.html">Videos</a></li>
@@ -89,114 +164,219 @@
                     <li role="tab"><a href="youtube.html">Youtube</a></li>
                     <li role="tab"><a href="books.html">Books</a></li>
                     <li role="tab"><a href="feedback.html">Feedback</a></li>
-
                 </menu>
                 
                 <div class="content">
                     <h2>Video Games</h2>
                     <p>I LOVE VIDEO GAMES!!!! all kinds, most kinds, except anything fantasy (sorry) theyre just kinda cringe.</p>
                     <p>I'll probably recap some games im playing or things im excited for.</p>
-                    <p>I'm almost done with max payne finally, i think i got about 2 more hours on it probably. sam lake is so cool, i want to be him one day.</p>
-                    <p id="indent">-update: im super stuck. on literally the last part. if i do this, the game is over. and i cant. im losing my mind.... SECOND update: im done. that was hell</p>
-                    <p>I'm super stuck on dead space 2 rn. those fucking screaming crying babies keep killing me and i have like no supplies. i think i soft locked myself tbh. ill deal with that later.</p>
-                    <p>im also pretty excited for Cronos: The New Dawn, i hope it comes out later this year. the trailer looked pretty cool.</p>
-                    <br>
+                    
 
-                    <p>OMG i can also link some youtube videos ive watched recently, theyre basically all about games.</p>
-                    <p>Some channels ive been liking lately: jacob geller, your favorite son, daryl talks games, and razbuten</p>
-                    <div class="scrolling-wrapper">
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/C8YtdC8mxTU" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+
+                    <!-- Status Feed -->
+                     <h4>Posts:</h4>
+                    <div class="status-feed" id="statusFeed">
+                        <!-- Max Payne Update with Reply -->
+                        <div class="status-card" data-id="1">
+                            <div class="status-header">
+                                <div class="status-title">Max Payne</div>
+                                <div class="status-timestamp">May 13, 2025</div>
                             </div>
-                            <p>graphics stuff</p>
-                        </div>
-                        
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/EW2xTGY1X1c" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+                            <div class="status-content">
+                                I'm almost done with max payne finally, i think i got about 2 more hours on it probably. sam lake is so cool, i want to be him one day.
                             </div>
-                            <p>absolutely LOVED this one. a must watch.</p>
-                        </div>
-                        
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/D7_qv9U8wWI" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+                            <div class="reply-card">
+                                <div class="status-header">
+                                    <div class="status-title">Update</div>
+                                    <div class="status-timestamp">May 14, 2025</div>
+                                </div>
+                                <div class="status-content">
+                                    uhh update, im super stuck. on literally the last part. if i do this, the game is over. and i cant. im losing my mind.... 
+                                </div>
                             </div>
-                            <p>responsibility of a sequel, RE2</p>
+                                <div class="reply-card">
+                                <div class="status-header">
+                                    <div class="status-title">Second Update</div>
+                                    <div class="status-timestamp">May 17, 2025</div>
+                                </div>
+                                <div class="status-content">
+                                    im done. that was hell
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/tXfwvohROPA" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+                        <div class="status-card" data-id="2">
+                            <div class="status-header">
+                                <div class="status-title">Dead Space</div>
+                                <div class="status-timestamp">May 13, 2025</div>
                             </div>
-                            <p>path tracing in Alan Wake 2</p>
+                            <div class="status-content">
+                                I'm super stuck on dead space 2 rn. those fucking screaming crying babies keep killing me and i have like no supplies. i think i soft locked myself tbh. ill deal with that later.
+                            </div>
+                            <div class="reply-card">
+                                <div class="status-header">
+                                    <div class="status-title">Update</div>
+                                    <div class="status-timestamp">June 15, 2025</div>
+                                </div>
+                                <div class="status-content">
+                                    so i took a super long break. i booted it up again and then beat that part my literal first try. i had been trying for like 2 hours straight last time. anyways.. 
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/0FVC_KFpfXI" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+                        <div class="status-card" data-id="3">
+                            <div class="status-header">
+                                <div class="status-title">Cronos: The New Dawn</div>
+                                <div class="status-timestamp">May 13, 2025</div>
                             </div>
-                            <p>control - complete retrospective</p>
-                        </div>
-
-                        <div class="card video-card">
-                            <div class="yt-embed">
-                                <iframe 
-                                    width="320" 
-                                    height="180" 
-                                    src="https://www.youtube.com/embed/_PiiXM51oBo" 
-                                    title="YouTube video player" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowfullscreen>
-                                </iframe>
+                            <div class="status-content">
+                                im also pretty excited for Cronos: The New Dawn, i hope it comes out later this year. the trailer looked pretty cool.
                             </div>
-                            <p>emotion engine</p>
                         </div>
-
                     </div>
-                </div>
+
+                    <!-- YouTube Videos Section -->
+                    <div class="youtube-section">
+                        <h3>More recs since June 20, 2025</h3>                        
+                        <div class="scrolling-wrapper">
+                            <div class="card video-card">
+                                <div class="yt-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IPz4ja4HhHA?si=qWEcuaCe6f4S8XFq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                                <p>this was so cool. i love fashion and games.</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/16eE0-Xxqds?si=LYzgMQSfSxP3TEqD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                                <p>struggling through this one on psp rn</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KJWAUJhInH0?si=90J5r6HLP_xGSH4t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                                <p>SOOOO excited for this one?? it looks beautiful</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Yke-E_xcEJk?si=Fua77FuURK2cJMrn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                                <p>another remedy video, no surprise. sam lake pls hire me</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/i-k9MGiiUR8?si=EdF-tvSH6-DGFqSp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                                </div>
+                            <p>optimization stuff</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/ySLXfC7XAdU?si=XzFUqafFXzoilqZZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <p>fast travel</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- section 2 -->
+                     <div class="youtube-section">
+                        <h3>Videos I recommend (as of May 13, 2025)</h3>
+                        <p>Some channels ive been liking lately: jacob geller, your favorite son, daryl talks games, and razbuten</p>
+                        
+                        <div class="scrolling-wrapper">
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/C8YtdC8mxTU" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>graphics stuff</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/EW2xTGY1X1c" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>absolutely LOVED this one. a must watch.</p>
+                            </div>
+                            
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/D7_qv9U8wWI" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>responsibility of a sequel, RE2</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/tXfwvohROPA" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>path tracing in Alan Wake 2</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/0FVC_KFpfXI" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>control - complete retrospective</p>
+                            </div>
+
+                            <div class="card video-card">
+                                <div class="yt-embed">
+                                    <iframe 
+                                        width="320" 
+                                        height="180" 
+                                        src="https://www.youtube.com/embed/_PiiXM51oBo" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <p>emotion engine</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,5 +385,9 @@
         <script type="text/javascript" src="https://www.scmplayer.net/script.js" 
         data-config="{'skin':'skins/aquaBlue/skin.css','volume':50,'autoplay':false,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':true,'playlist':[{'title':'tekken beach stage','url':'https://www.youtube.com/watch?v=T093v2hYWL8'}]}" ></script>
         <!-- SCM Music Player script end -->
+
+        <script>
+            // SCM Music Player script above
+        </script>
     </body>
 </html>

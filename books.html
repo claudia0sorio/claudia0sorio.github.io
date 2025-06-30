@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://unpkg.com/98.css">
         <link rel="stylesheet" href="styles.css">
         <title>
-            swag
+            Books - Claudia's Website
         </title>
         <style>
             /* Horizontal scrolling gallery */
@@ -16,6 +16,7 @@
                 padding: 10px;
                 background: #c0c0c0;
                 border: inset 2px;
+                margin-bottom: 20px;
             }
             
             .card {
@@ -23,31 +24,122 @@
                 margin-right: 15px;
                 border: outset 2px;
                 background: white;
-                padding: 5px;
+                padding: 8px;
+                width: 150px;
+                text-align: center;
             }
             
             .card img {
-                width: 200px;
-                height: 150px;
+                width: 130px;
+                height: 180px;
                 object-fit: cover;
+                border: 1px solid #808080;
             }
             
             .card p {
-                margin: 5px 0;
+                margin: 8px 0 4px 0;
                 white-space: normal;
-                text-align: center;
+                font-size: 11px;
+                line-height: 1.3;
+            }
+
+            .card .book-title {
+                font-weight: bold;
+                font-size: 12px;
+                color: #000080;
+                margin-bottom: 4px;
+            }
+
+            .card .book-status {
+                /* font-style: italic; */
+                color: #666;
+                font-size: 10px;
+            }
+
+            /* Status feed styling */
+            .status-feed {
+                height: 300px;
+                overflow-y: auto;
+                padding: 10px;
+                background-color: white;
+                border: inset 2px;
+                margin-bottom: 15px;
+            }
+
+            .status-card {
+                background-color: #c0c0c0;
+                border: outset 2px;
+                margin-bottom: 15px;
+                padding: 12px;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
                 font-size: 12px;
             }
 
-            /* Video card specific */
-            .video-card {
-                width: 320px;
+            .status-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #808080;
             }
-            
-            .video-card video {
-                width: 320px;
-                height: 240px;
-                background: black;
+
+            .status-title {
+                font-weight: bold;
+                color: #000080;
+            }
+
+            .status-timestamp {
+                font-size: 10px;
+                color: #666;
+            }
+
+            .status-content {
+                line-height: 1.4;
+                margin-top: 8px;
+            }
+
+            .reply-card {
+                background-color: #e0e0e0;
+                border: inset 1px;
+                margin-left: 20px;
+                margin-top: 10px;
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            /* Reading goal section */
+            .reading-goal {
+                background: #c0c0c0;
+                border: inset 2px;
+                padding: 15px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .progress-bar {
+                background: white;
+                border: inset 2px;
+                height: 20px;
+                margin: 10px 0;
+                position: relative;
+            }
+
+            .progress-fill {
+                background: #000080;
+                height: 100%;
+                transition: width 0.3s ease;
+            }
+
+            .progress-text {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 11px;
+                font-weight: bold;
+                color: pink;
+                /* text-shadow: 1px 1px 1px black; */
             }
 
             /* Add Windows 98 scrollbar styling */
@@ -61,6 +153,31 @@
             
             .scrolling-wrapper::-webkit-scrollbar-thumb {
                 background: #dfdfdf;
+                border: outset 2px;
+            }
+
+            .status-feed::-webkit-scrollbar {
+                width: 16px;
+            }
+
+            .status-feed::-webkit-scrollbar-track {
+                background: #c0c0c0;
+            }
+
+            .status-feed::-webkit-scrollbar-thumb {
+                background: #dfdfdf;
+                border: outset 2px;
+            }
+
+            #flex {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            #flex img {
+                max-width: 200px;
                 border: outset 2px;
             }
         </style>
@@ -79,7 +196,7 @@
                 <menu role="tablist">
                     <li role="tab"><a href="index.html">Home</a></li>
                     <li role="tab"><a href="about.html">About Me</a></li>
-                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <!-- <li role="tab"><a href="thoughts.html">Thoughts</a></li> -->
                     <li role="tab"><a href="music.html">Music</a></li>
                     <li role="tab"><a href="pictures.html">Pictures</a></li>
                     <li role="tab"><a href="videos.html">Videos</a></li>
@@ -93,14 +210,125 @@
                 
                 <div class="content">
                     <h2>Books</h2>
-                    <p>BOOKS!!! how could i forget about books!!! i love reading. i used to do it way more than i do now. its just kinda hard<br> to find the time, which is a lame excuse. ive been making the time but its still not enough. right now im reading Death note vol 5 and The 1998 Yankees. <br><br>i also started reading comic books which has been fun. i need a collection. im a hoarder, if u cant tell.</p>
-                    <p>Update: I finished death note vol 5. on to 6, then i can finally finish the show. i need a better way to make updates to this page. bear with me.</p>
-                    <p>I also recently finished the stranger by albert camus. good book, just made me really sad and empty. guess thats the point tho.</p>
-
-                    <br>
+                    <p>BOOKS!!! how could i forget about books!!! i love reading. i used to do it way more than i do now. its just kinda hard<br> to find the time, which is a lame excuse. ive been making the time but its still not enough.</p>
                     <p>uhhh my favorite book is probably johnny got his gun. fantastic read. super fucked up and sad. but real. also in stream of consciousness which i found cool.</p>
-                
-                    
+
+                    <!-- Reading Goal Section -->
+                    <div class="reading-goal">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%"></div>
+                            <div class="progress-text">4 / 13 books</div>
+                        </div>
+                    </div>
+
+                    <!-- Currently Reading Section -->
+                    <h4>Currently:</h4>
+                    <div class="scrolling-wrapper">
+                        <div class="card">
+                            <img src="books/deathnote6.jpg">
+                            <div class="book-title">Death Note Vol 6</div>
+                            <!-- <p class="book-status">just started</p> -->
+                        </div>
+                        
+                        <div class="card">
+                            <img src="books/yanks1998.jpg">
+                            <div class="book-title">The 1998 Yankees</div>
+                            <!-- <p class="book-status">halfway through</p> -->
+                        </div>
+                        <div class="card">
+                            <img src="books/spidervol1.jpg">
+                            <div class="book-title">Ultimate Spider-Man #1</div>
+                            <!-- <p class="book-status">halfway through</p> -->
+                        </div>
+                    </div>
+
+                    <!-- Recently Finished -->
+                    <h4>Previously: </h4>
+                    <div class="scrolling-wrapper">
+                        <div class="card">
+                            <img src="books/stranger.jpg">
+                            <div class="book-title">The Stranger</div>
+                            <p>albert camus</p>
+                            <!-- <p class="book-status">made me really sad and empty. guess thats the point tho.</p> -->
+                        </div>
+                        
+                        <div class="card">
+                            <img src="books/deathnote5.jpg">
+                            <div class="book-title">Death Note Vol 5</div>
+                            <p>tsugumi ohba</p>
+                            <!-- <p class="book-status">finally finished! can watch the show now</p> -->
+                        </div>
+                    </div>
+
+                    <!-- All Time Favorites -->
+                    <h4>All Time Favs</h4>
+                    <div class="scrolling-wrapper">
+                        <div class="card">
+                            <img src="books/johnnygothisgun.jpg">
+                            <div class="book-title">Johnny Got His Gun</div>
+                            <p>dalton trumbo</p>
+                        </div>
+                        
+                        <div class="card">
+                            <img src="books/doriangray.jpg">
+                            <div class="book-title">The Picture of Dorian Gray</div>
+                            <p>oscar wilde</p>
+                        </div>
+                        <div class="card">
+                            <img src="books/basketballdiaries.jpg">
+                            <div class="book-title">The Basketball Diaries</div>
+                            <p>jim carroll</p>
+                        </div>
+                        <div class="card">
+                            <img src="books/doginnight.png">
+                            <div class="book-title">The Curious Incident of <br>the Dog in the Night-Time</div>
+                            <p>mark haddon</p>
+                        </div>
+                        <div class="card">
+                            <img src="books/macbeth.jpg">
+                            <div class="book-title">Macbeth</div>
+                            <p>shakespeare</p>
+                        </div>
+                        <div class="card">
+                            <img src="books/lookingforalaska.jpg">
+                            <div class="book-title">Looking for Alaska</div>
+                            <p>john green</p>
+                        </div>
+                    </div>
+
+                    <!-- Reading Updates Feed -->
+                    <h4>Updates/Comments</h4>
+                        <div class="status-card">
+                            <div class="status-header">
+                                <div class="status-title">The Stranger</div>
+                                <!-- <div class="status-timestamp">June 15, 2025</div> -->
+                            </div>
+                            <div class="status-content">
+                                finished the stranger by albert camus. good book, just made me really sad and empty. guess thats the point tho.
+                            </div>
+                        </div>
+
+                        <div class="status-card">
+                            <div class="status-header">
+                                <div class="status-title">Comic Books</div>
+                                <!-- <div class="status-timestamp">May 20, 2025</div> -->
+                            </div>
+                            <div class="status-content">
+                                started reading comic books which has been fun. i need a collection. im a hoarder, if u cant tell.
+                            </div>
+                        </div>
+
+                        <div class="status-card">
+                            <div class="status-header">
+                                <div class="status-title">Death Note Vol 5</div>
+                                <!-- <div class="status-timestamp">May 13, 2025</div> -->
+                            </div>
+                            <div class="status-content">
+                                Update: I finished death note vol 5. on to 6, then i can finally finish the show. i need a better way to make updates to this page. bear with me.
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="flex">
                         <img id="me" src="images/books.jpeg">
                         <p>but yeah, i used to be better at keeping up with this. heres me in my peak. <br>that was 2022.<br> hoping to hit at least half of that this year. we'll see</p>

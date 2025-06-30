@@ -63,7 +63,74 @@
                 background: #dfdfdf;
                 border: outset 2px;
             }
+            .camera-shop {
+                background: linear-gradient(45deg, pink, purple);
+                border: outset 3px;
+                padding: 15px;
+                font-family: "Pixelated MS Sans Serif", Arial, sans-serif;
+            }
+
+            .shop-counter {
+                height: 150px;
+                display: flex;
+                flex-wrap: nowrap;
+                /* gap: 20px; */
+                justify-content: flex-start;
+                background: #A7C7E7;
+                padding: 15px;
+                border: inset 2px;
+                margin: 10px 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .camera-display {
+                cursor: pointer;
+                transition: transform 0.1s;
+                padding: 10px;
+            }
+
+            .camera-display:hover {
+                transform: scale(1.05);
+            }
+
+            .camera-display.clicked {
+                transform: scale(0.98);
+            }
+
+            .camera-display img {
+                margin-top: -10px;
+                width: 160px;
+                height: auto;
+                display: block;
+            }
+
+            .inspection-area {
+                background: #A7C7E7;
+                border: inset 2px;
+                text-align: center;
+                min-height: 20px;
+                font-style: italic;
+            }
         </style>
+
+        <script>
+            function inspectCamera(element) {
+                // Remove clicked state from all cameras
+                document.querySelectorAll('.camera-display').forEach(cam => {
+                    cam.classList.remove('clicked');
+                });
+                
+                // Add clicked state to current camera
+                element.classList.add('clicked');
+                
+                const name = element.dataset.name;
+                
+                document.getElementById('inspection').innerHTML = `
+                    <p><strong>${name}</strong></p>
+                `;
+            }
+        </script>
     </head>
     <body>
         <div class="window" id="videoWindow">
@@ -79,7 +146,7 @@
                 <menu role="tablist">
                     <li role="tab"><a href="index.html">Home</a></li>
                     <li role="tab"><a href="about.html">About Me</a></li>
-                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <!-- <li role="tab"><a href="thoughts.html">Thoughts</a></li> -->
                     <li role="tab"><a href="music.html">Music</a></li>
                     <li role="tab"><a href="pictures.html">Pictures</a></li>
                     <li role="tab" aria-selected="true"><a href="videos.html">Videos</a></li>
@@ -95,6 +162,24 @@
                 <div class="content">
                     <h2>Videos</h2>
                     <p>I also have a camcorder. i record random little videos or vlogs sometimes. <br> that'll go here</p>
+
+                <div class="camera-shop">    
+                    <div class="shop-counter">
+                        <div id="nikone43" class="camera-display" onclick="inspectCamera(this)" 
+                            data-name="Samsung SC-DX103 DVD Camcorder">
+                            <img src="camera/samsungscdx103-removebg-preview.png">
+                        </div>
+                        <div class="camera-display" onclick="inspectCamera(this)"
+                            data-name="Flip UltraHD Video Camera">
+                            <img src="camera/flip-removebg-preview.png">
+                        </div>
+                    </div>
+                    
+                    <div class="inspection-area" id="inspection">
+                        <p><strong>Samsung SC-DX103 DVD Camcorder</strong></p>
+                    </div>
+                </div>
+
 
                     <!-- Gallery Section 1: JULY 2024 -->
                     <div class="gallery-section">
@@ -341,6 +426,84 @@
 
                         </div>
 
+                        <!-- Gallery Section: big sur 25 -->
+                    <div class="gallery-section">
+                        <h4>Big Sur, June 2025</h4>
+                        <div class="scrolling-wrapper">
+                           <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/1.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>the fam :)</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/2.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>should we do the mannequin challenge?</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/3.mp4" type="video/mp4"> -->
+                                </video>
+                                <p></p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/4.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>the morales</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/5.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>film camera</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/6.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>mewing & mogging</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/7.mp4" type="video/mp4"> -->
+                                </video>
+                                <p></p>
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/8.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>LCR</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/9.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>u fool</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/10.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>that was on its axis.</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/11.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>he won.</p> -->
+                            </div>
+                            <div class="card video-card">
+                                <video controls>
+                                    <!-- <source src="images/christmas24/videos/12.mp4" type="video/mp4"> -->
+                                </video>
+                                <!-- <p>he had earplugs in the whole day</p> -->
+                            </div>
+
+                        </div>
 
 
 
