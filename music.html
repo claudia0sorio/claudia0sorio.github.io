@@ -5,71 +5,278 @@
         <link rel="stylesheet" href="https://unpkg.com/98.css">
         <link rel="stylesheet" href="styles.css">
         <title>
-            swag
+            Music - Claudia's Website
         </title>
         <style>
-            /* Horizontal scrolling gallery */
-            .scrolling-wrapper {
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                padding: 10px;
+            /* 3D CD Side-Scroll Carousel */
+            .cd-carousel {
                 background: #c0c0c0;
                 border: inset 2px;
-            }
-            
-            .card {
-                display: inline-block;
-                margin-right: 15px;
-                border: outset 2px;
-                background: white;
-                padding: 5px;
-            }
-            
-            .card img {
-                width: 200px;
-                height: 150px;
-                object-fit: cover;
-            }
-            
-            .card p {
-                margin: 5px 0;
-                white-space: normal;
+                padding: 40px 20px;
+                margin: 20px 0;
                 text-align: center;
-                font-size: 12px;
+                overflow: hidden;
             }
 
-            /* Video card specific */
-            .video-card {
-                width: 320px;
-            }
-            
-            .video-card video {
-                width: 320px;
-                height: 240px;
-                background: black;
+            .carousel-container {
+                position: relative;
+                height: 300px;
+                perspective: 1200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
-            /* Add Windows 98 scrollbar styling */
-            .scrolling-wrapper::-webkit-scrollbar {
-                height: 16px;
+            .carousel-track {
+                position: relative;
+                width: 100%;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform-style: preserve-3d;
+                transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
             }
-            
-            .scrolling-wrapper::-webkit-scrollbar-track {
-                background: #c0c0c0;
+
+            .cd-item {
+                position: absolute;
+                width: 180px;
+                height: 180px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+                cursor: pointer;
+                transform-origin: center center;
             }
-            
-            .scrolling-wrapper::-webkit-scrollbar-thumb {
-                background: #dfdfdf;
+
+            .cd-item img {
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid #333;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.6s ease;
+            }
+
+            /* Center CD - front facing */
+            .cd-item.center {
+                transform: translateX(0) translateZ(0) rotateY(0deg) scale(1.2);
+                z-index: 10;
+            }
+
+            .cd-item.center img {
+                border-color: pink;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            }
+
+            /* Left CDs - rotated to show side */
+            .cd-item.left-1 {
+                transform: translateX(-120px) translateZ(-50px) rotateY(45deg) scale(0.9);
+                z-index: 8;
+            }
+
+            .cd-item.left-2 {
+                transform: translateX(-200px) translateZ(-100px) rotateY(60deg) scale(0.7);
+                z-index: 6;
+                opacity: 0.8;
+            }
+
+            .cd-item.left-3 {
+                transform: translateX(-260px) translateZ(-150px) rotateY(75deg) scale(0.5);
+                z-index: 4;
+                opacity: 0.6;
+            }
+
+            /* Right CDs - rotated to show side */
+            .cd-item.right-1 {
+                transform: translateX(120px) translateZ(-50px) rotateY(-45deg) scale(0.9);
+                z-index: 8;
+            }
+
+            .cd-item.right-2 {
+                transform: translateX(200px) translateZ(-100px) rotateY(-60deg) scale(0.7);
+                z-index: 6;
+                opacity: 0.8;
+            }
+
+            .cd-item.right-3 {
+                transform: translateX(260px) translateZ(-150px) rotateY(-75deg) scale(0.5);
+                z-index: 4;
+                opacity: 0.6;
+            }
+
+            /* Hidden CDs */
+            .cd-item.hidden {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateX(400px) translateZ(-200px) rotateY(-90deg) scale(0.3);
+            }
+
+            .cd-info {
+                position: absolute;
+                bottom: -60px;
+                background: rgba(192, 192, 192, 0.95);
                 border: outset 2px;
+                padding: 8px 12px;
+                text-align: center;
+                opacity: 0;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+                z-index: 15;
+                transform: rotateY(0deg); /* Keep text facing forward */
             }
+
+            .cd-item.center .cd-info {
+                opacity: 1;
+                bottom: -50px;
+            }
+
+            .cd-title {
+                font-weight: bold;
+                font-size: 12px;
+                color: #000080;
+                margin: 0;
+            }
+
+            .cd-artist {
+                font-size: 10px;
+                color: #666;
+                margin: 2px 0 0 0;
+            }
+
+            .carousel-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: #c0c0c0;
+                border: outset 2px;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 20;
+            }
+
+            .carousel-nav:hover {
+                background: #dfdfdf;
+            }
+
+            .carousel-nav:active {
+                border: inset 2px;
+            }
+
+            .carousel-nav.prev {
+                left: 20px;
+            }
+
+            .carousel-nav.next {
+                right: 20px;
+            }
+
+            .carousel-counter {
+                margin-top: 80px;
+                font-size: 11px;
+                color: #666;
+            }
+
+            /* Listening Stats */
+            .listening-stats {
+                background: #c0c0c0;
+                border: inset 2px;
+                padding: 15px;
+                margin: 20px 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .stat-box {
+                background: white;
+                border: inset 2px;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .stat-number {
+                font-size: 18px;
+                font-weight: bold;
+                color: #000080;
+                display: block;
+            }
+
+            .stat-label {
+                font-size: 14px;
+                color: #666;
+                margin-top: 2px;
+            }
+
+            /* Recently Added Section */
+            .recently-added {
+                background: #c0c0c0;
+                border: inset 2px;
+                padding: 15px;
+                margin: 20px 0;
+            }
+
+            .mini-cd-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .mini-cd {
+                text-align: center;
+            }
+
+            .mini-cd img {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #808080;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .mini-cd img:hover {
+                border-color: #000080;
+                transform: scale(1.05);
+            }
+
+            .mini-cd p {
+                font-size: 9px;
+                margin: 4px 0 0 0;
+                line-height: 1.2;
+            }
+
             #list {
                 font-size: 15px;
+            }
+
+            #flex {
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                /* margin: 20px 0; */
+            }
+            #flex > div { flex: 1; }
+
+            #flex img {
+                max-width: 400px;
+                /* border: outset 2px; */
             }
         </style>
     </head>
     <body>
-        <div class="window">
+        <div class="window" id="musicWindow">
             <div class="title-bar">
                 <div class="title-bar-text">claudia's website</div>
                 <div class="title-bar-controls">
@@ -82,7 +289,7 @@
                 <menu role="tablist">
                     <li role="tab"><a href="index.html">Home</a></li>
                     <li role="tab"><a href="about.html">About Me</a></li>
-                    <li role="tab"><a href="thoughts.html">Thoughts</a></li>
+                    <!-- <li role="tab"><a href="thoughts.html">Thoughts</a></li> -->
                     <li role="tab" aria-selected="true"><a href="music.html">Music</a></li>
                     <li role="tab"><a href="pictures.html">Pictures</a></li>
                     <li role="tab"><a href="videos.html">Videos</a></li>
@@ -92,28 +299,1711 @@
                     <li role="tab"><a href="youtube.html">Youtube</a></li>
                     <li role="tab"><a href="books.html">Books</a></li>
                     <li role="tab"><a href="feedback.html">Feedback</a></li>
-
                 </menu>
                 
                 <div class="content">
                     <h2>Music</h2>
                     <p>i like music a lot. most kinds. i also really like concerts. ive been to 44, i counted.</p>
                     <p>might catalog all my cds, vinyls, cassettes, & 8tracks or something here. i collect them.</p>
-
-                    <p>Here's my <a href="https://open.spotify.com/user/claudiiaaa14" target="_blank">spotify</a> too.</p>
-                    <p>i have a lot of playlists. about 560, check them out. <br>im very proud.</p>
-                    <div id="flex">
-                        <img id="me" src="images/songs.png">
-                        <div>
-                        <p>here are some songs ive been listening to a lot lately.</p>
-                        <br><p>Here are all my cds and cassettes. i scanned them lol:</p>
-                        <a href="music/listOfCollection.pdf" id="list" target="_blank">Music Collection</a>
-                        <p>there's about 370 of them</p>
-
+                    <p>Here's my <a href="https://open.spotify.com/user/claudiiaaa14" target="_blank">spotify</a> too. i have a lot of playlists, check them out. im very proud.</p>
+                    
+                    <!-- Listening Stats -->
+                    <div class="listening-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">370</span>
+                            <div class="stat-label">CDs & cassettes</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">44</span>
+                            <div class="stat-label">8-tracks tapes</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">i havent counted yet lmao</span>
+                            <div class="stat-label">vinyls</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">44</span>
+                            <div class="stat-label">concerts</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">560</span>
+                            <div class="stat-label">spotify playlists</div>
                         </div>
                     </div>
 
+                    <!-- 3D CD Side-Scroll Carousel -->
+                    <div class="cd-carousel">
+                        <h3>My CDs</h3>
+                        <p>scroll through my collection :)</p>
+                        
+                        <div class="carousel-container">
+                            <button class="carousel-nav prev" onclick="scrollCarousel(-1)">‹</button>
+                            
+<div class="carousel-track" id="carouselTrack">
+    <div class="cd-item center" data-index="0">
+        <img src="cd/baby_one_more_time.jpeg">
+        <div class="cd-info">
+            <div class="cd-title">...Baby One More Time</div>
+            <div class="cd-artist">Britney Spears</div>
+        </div>
+    </div>
+    <div class="cd-item right-1" data-index="1">
+        <img src="cd/nsync.jpg">
+        <div class="cd-info">
+            <div class="cd-title">'N Sync</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item right-2" data-index="2">
+        <img src="cd/god_must_have_spent_a_little_more_time_on_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">(God Must Have Spent) A Little More Time On You</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <!-- <div class="cd-item right-3" data-index="3">
+        <img src="cd/nsync_1998.jpg">
+        <div class="cd-info">
+            <div class="cd-title">*NSYNC</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div> -->
+    <div class="cd-item hidden" data-index="4">
+        <img src="cd/1.jpg">
+        <div class="cd-info">
+            <div class="cd-title">1</div>
+            <div class="cd-artist">The Beatles</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="5">
+        <img src="cd/1459.jpg">
+        <div class="cd-info">
+            <div class="cd-title">14:59</div>
+            <div class="cd-artist">Sugar Ray</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="6">
+        <img src="cd/1999_grammy_nominees.jpg">
+        <div class="cd-info">
+            <div class="cd-title">1999 Grammy Nominees</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="7">
+        <img src="cd/21st_century_breakdown.jpg">
+        <div class="cd-info">
+            <div class="cd-title">21st Century Breakdown</div>
+            <div class="cd-artist">Green Day</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="8">
+        <img src="cd/5_seconds_of_summer.jpg">
+        <div class="cd-info">
+            <div class="cd-title">5 Seconds Of Summer</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="9">
+        <img src="cd/5sos5.png">
+        <div class="cd-info">
+            <div class="cd-title">5SOS5</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <!-- <div class="cd-item hidden" data-index="10">
+        <img src="cd/98_and_rising.jpg">
+        <div class="cd-info">
+            <div class="cd-title">98° And Rising</div>
+            <div class="cd-artist">98 Degrees</div>
+        </div>
+    </div> -->
+    <div class="cd-item hidden" data-index="11">
+        <img src="cd/a_fever_you_cant_sweat_out.jpg">
+        <div class="cd-info">
+            <div class="cd-title">A Fever You Can't Sweat Out</div>
+            <div class="cd-artist">Panic! At The Disco</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="12">
+        <img src="cd/a_rush_of_blood_to_the_head.png">
+        <div class="cd-info">
+            <div class="cd-title">A Rush Of Blood To The Head</div>
+            <div class="cd-artist">Coldplay</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="13">
+        <img src="cd/a_thousand_miles.jpg">
+        <div class="cd-info">
+            <div class="cd-title">A Thousand Miles</div>
+            <div class="cd-artist">Vanessa Carlton</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="14">
+        <img src="cd/a_year_without_rain.jpg">
+        <div class="cd-info">
+            <div class="cd-title">A Year Without Rain</div>
+            <div class="cd-artist">Selena Gomez & The Scene</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="15">
+        <img src="cd/aarons_party_come_get_it.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Aaron's Party (Come Get It)</div>
+            <div class="cd-artist">Aaron Carter</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="16">
+        <img src="cd/acid_tongue.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Acid Tongue</div>
+            <div class="cd-artist">Jenny Lewis</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="17">
+        <img src="cd/across_the_universe.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Across The Universe (Music From The Motion Picture)</div>
+            <div class="cd-artist">Across The Universe Cast</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="18">
+        <img src="cd/affirmation.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Affirmation</div>
+            <div class="cd-artist">Savage Garden</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="19">
+        <img src="cd/all_killer_no_filler.jpg">
+        <div class="cd-info">
+            <div class="cd-title">All Killer No Filler</div>
+            <div class="cd-artist">Sum 41</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="20">
+        <img src="cd/all_that_you_cant_leave_behind.jpg">
+        <div class="cd-info">
+            <div class="cd-title">All That You Can't Leave Behind</div>
+            <div class="cd-artist">U2</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="21">
+        <img src="cd/all_this_bad_blood.jpg">
+        <div class="cd-info">
+            <div class="cd-title">All This Bad Blood</div>
+            <div class="cd-artist">Bastille</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="22">
+        <img src="cd/amazed.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Amazed</div>
+            <div class="cd-artist">LoneStar</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="23">
+        <img src="cd/american_idiot.jpg">
+        <div class="cd-info">
+            <div class="cd-title">American Idiot</div>
+            <div class="cd-artist">Green Day</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="24">
+        <img src="cd/american_pie_2.jpg">
+        <div class="cd-info">
+            <div class="cd-title">American Pie 2 (Music From The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="25">
+        <img src="cd/americana.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Americana</div>
+            <div class="cd-artist">The Offspring</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="26">
+        <img src="cd/amnesia.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Amnesia</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="27">
+        <img src="cd/anywhere_i_lay_my_head.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Anywhere I Lay My Head</div>
+            <div class="cd-artist">Scarlett Johansson</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="28">
+        <img src="cd/astro_lounge.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Astro Lounge</div>
+            <div class="cd-artist">Smash Mouth</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="29">
+        <img src="cd/back_to_front.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Back To Front</div>
+            <div class="cd-artist">Lionel Richie</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="30">
+        <img src="cd/backstreet_boys.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Backstreet Boys</div>
+            <div class="cd-artist">Backstreet Boys</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="31">
+        <img src="cd/badlands.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Badlands</div>
+            <div class="cd-artist">Halsey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="32">
+        <img src="cd/batman_robin.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Batman & Robin: Music From And Inspired By The "Batman & Robin" Motion Picture</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="33">
+        <img src="cd/because_of_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Because Of You</div>
+            <div class="cd-artist">98 Degrees</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="34">
+        <img src="cd/bedtime_stories.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Bedtime Stories</div>
+            <div class="cd-artist">Madonna</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="35">
+        <img src="cd/beethoven.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Beethoven</div>
+            <div class="cd-artist">Ludwig van Beethoven</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="36">
+        <img src="cd/big_blue_ball.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Big Blue Ball</div>
+            <div class="cd-artist">Big Blue Ball</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="37">
+        <img src="cd/biker_boyz.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Biker Boyz - Music From The Motion Picture</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="38">
+        <img src="cd/black_panther_the_album.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Black Panther The Album (Music From And Inspired By)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="39">
+        <img src="cd/blood_sugar_sex_magik.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Blood Sugar Sex Magik</div>
+            <div class="cd-artist">Red Hot Chili Peppers</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="40">
+        <img src="cd/blue.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Blue</div>
+            <div class="cd-artist">Third Eye Blind</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="41">
+        <img src="cd/blur.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Blur</div>
+            <div class="cd-artist">Blur</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="42">
+        <img src="cd/box_car_racer.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Box Car Racer</div>
+            <div class="cd-artist">Box Car Racer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="43">
+        <img src="cd/boy.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Boy</div>
+            <div class="cd-artist">Luke Hemmings</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="44">
+        <img src="cd/breakaway.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Breakaway</div>
+            <div class="cd-artist">Kelly Clarkson</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="45">
+        <img src="cd/butterfly.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Butterfly</div>
+            <div class="cd-artist">Mariah Carey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="46">
+        <img src="cd/by_the_way.jpg">
+        <div class="cd-info">
+            <div class="cd-title">By The Way</div>
+            <div class="cd-artist">Red Hot Chili Peppers</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="47">
+        <img src="cd/bye_bye_bye.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Bye Bye Bye</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="48">
+        <img src="cd/cest_la_vie.jpg">
+        <div class="cd-info">
+            <div class="cd-title">C'est La Vie</div>
+            <div class="cd-artist">B*Witched</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="49">
+        <img src="cd/californication.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Californication</div>
+            <div class="cd-artist">Red Hot Chili Peppers</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="50">
+        <img src="cd/cars.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Cars (Original Soundtrack)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="51">
+        <img src="cd/clairol_herbal_essences.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Clairol Herbal Essences Proudly Presents *NSYNC Exclusive CD Sampler</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="52">
+        <img src="cd/colores.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Colores</div>
+            <div class="cd-artist">J. Balvin</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="53">
+        <img src="cd/come_on_over.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Come On Over</div>
+            <div class="cd-artist">Shania Twain</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="54">
+        <img src="cd/country_grammar.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Country Grammar</div>
+            <div class="cd-artist">Nelly</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="55">
+        <img src="cd/crack_the_skye.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Crack The Skye</div>
+            <div class="cd-artist">Mastodon</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="56">
+        <img src="cd/crowded_house.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Crowded House</div>
+            <div class="cd-artist">Crowded House</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="57">
+        <img src="cd/crush.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Crush</div>
+            <div class="cd-artist">Bon Jovi</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="58">
+        <img src="cd/dance_with_me.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Dance With Me</div>
+            <div class="cd-artist">Debelah Morgan</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="59">
+        <img src="cd/dazed_and_confused.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Dazed And Confused</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="60">
+        <img src="cd/death_magnetic.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Death Magnetic</div>
+            <div class="cd-artist">Metallica</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="61">
+        <img src="cd/dedicated_to_the_one_i_love.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Dedicated To The One I Love</div>
+            <div class="cd-artist">Linda Ronstadt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="62">
+        <img src="cd/devil_without_a_cause.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Devil Without A Cause</div>
+            <div class="cd-artist">Kid Rock</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="63">
+        <img src="cd/disney_channel_holiday.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Disney Channel Holiday</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="64">
+        <img src="cd/dizzy_up_the_girl.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Dizzy Up The Girl</div>
+            <div class="cd-artist">Goo Goo Dolls</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="65">
+        <img src="cd/dont_panic_its_longer_now.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Don't Panic, It's Longer Now!</div>
+            <div class="cd-artist">All Time Low</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="66">
+        <img src="cd/dont_say_you_love_me.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Don't Say You Love Me</div>
+            <div class="cd-artist">M2M</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="67">
+        <img src="cd/dont_stop.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Don't Stop</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="68">
+        <img src="cd/double_wide.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Double Wide</div>
+            <div class="cd-artist">Uncle Kracker</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="69">
+        <img src="cd/drive_thru_records_2002_winter_sampler.jpg">
+        <div class="cd-info">
+            <div class="cd-title">drive-thru Records 2002 Winter Sampler</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="70">
+        <img src="cd/drops_of_jupiter.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Drops Of Jupiter</div>
+            <div class="cd-artist">Train</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="71">
+        <img src="cd/ecuador.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ecuador - Traditional Music From Latin America</div>
+            <div class="cd-artist">Runakuna</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="72">
+        <img src="cd/elephants_teeth_sinking_into_heart.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Elephants...Teeth Sinking Into Heart</div>
+            <div class="cd-artist">Rachael Yamagata</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="73">
+        <img src="cd/elephunk.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Elephunk</div>
+            <div class="cd-artist">Black Eyed Peas</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="74">
+        <img src="cd/empire_records.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Empire Records (The Soundtrack)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="75">
+        <img src="cd/everlife.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Everlife</div>
+            <div class="cd-artist">Everlife</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="76">
+        <img src="cd/everything_in_transit.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Everything In Transit</div>
+            <div class="cd-artist">Jack's Mannequin</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="77">
+        <img src="cd/falling_into_infinity.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Falling Into Infinity</div>
+            <div class="cd-artist">Dream Theater</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="78">
+        <img src="cd/four.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Four</div>
+            <div class="cd-artist">One Direction</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="79">
+        <img src="cd/franz_ferdinand.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Franz Ferdinand</div>
+            <div class="cd-artist">Franz Ferdinand</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="80">
+        <img src="cd/girl_interrupted.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Girl, Interrupted - Original Motion Picture Soundtrack</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="81">
+        <img src="cd/good_charlotte.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Good Charlotte</div>
+            <div class="cd-artist">Good Charlotte</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="82">
+        <img src="cd/good_vibrations.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Good Vibrations</div>
+            <div class="cd-artist">Marky Mark And The Funky Bunch</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="83">
+        <img src="cd/gorillaz.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Gorillaz</div>
+            <div class="cd-artist">Gorillaz</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="84">
+        <img src="cd/grammy_nominees_2009.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Grammy Nominees 2009</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="85">
+        <img src="cd/greatest_hits_taylor_dayne.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Greatest Hits</div>
+            <div class="cd-artist">Taylor Dayne</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="86">
+        <img src="cd/greatest_hits_journey.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Greatest Hits</div>
+            <div class="cd-artist">Journey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="87">
+        <img src="cd/handwritten.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Handwritten</div>
+            <div class="cd-artist">Shawn Mendes</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="88">
+        <img src="cd/hannah_montana_2_meet_miley_cyrus.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Hannah Montana 2 / Meet Miley Cyrus</div>
+            <div class="cd-artist">Hannah Montana</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="89">
+        <img src="cd/harry_styles.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Harry Styles</div>
+            <div class="cd-artist">Harry Styles</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="90">
+        <img src="cd/here_here_and_here.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Here, Here And Here</div>
+            <div class="cd-artist">Meg & Dia</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="91">
+        <img src="cd/high_school_musical.jpg">
+        <div class="cd-info">
+            <div class="cd-title">High School Musical</div>
+            <div class="cd-artist">The High School Musical Cast</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="92">
+        <img src="cd/high_school_musical_3.jpg">
+        <div class="cd-info">
+            <div class="cd-title">High School Musical 3: Senior Year (Soundtrack)</div>
+            <div class="cd-artist">The High School Musical Cast</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="93">
+        <img src="cd/hook_me_up.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Hook Me Up</div>
+            <div class="cd-artist">The Veronicas</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="94">
+        <img src="cd/how_do_i_deal.jpg">
+        <div class="cd-info">
+            <div class="cd-title">How Do I Deal</div>
+            <div class="cd-artist">Jennifer Love Hewitt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="95">
+        <img src="cd/hurry_up_and_wait.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Hurry Up And Wait</div>
+            <div class="cd-artist">Riddlin' Kids</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="96">
+        <img src="cd/hybrid_theory.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Hybrid Theory</div>
+            <div class="cd-artist">Linkin Park</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="97">
+        <img src="cd/i_turn_to_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">I Turn To You</div>
+            <div class="cd-artist">Christina Aguilera</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="98">
+        <img src="cd/i_flathead.jpg">
+        <div class="cd-info">
+            <div class="cd-title">I, Flathead (The Songs Of Kash Buk And The Klowns)</div>
+            <div class="cd-artist">Ry Cooder</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="99">
+        <img src="cd/if_you_could_read_my_mind.jpg">
+        <div class="cd-info">
+            <div class="cd-title">If You Could Read My Mind</div>
+            <div class="cd-artist">Stars On 54</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="100">
+        <img src="cd/in_rainbows.jpg">
+        <div class="cd-info">
+            <div class="cd-title">In Rainbows</div>
+            <div class="cd-artist">Radiohead</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="101">
+        <img src="cd/its_gonna_be_me.jpg">
+        <div class="cd-info">
+            <div class="cd-title">It's Gonna Be Me</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="102">
+        <img src="cd/jennifer_love_hewitt.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Jennifer Love Hewitt</div>
+            <div class="cd-artist">Jennifer Love Hewitt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="103">
+        <img src="cd/jonas_brothers.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Jonas Brothers</div>
+            <div class="cd-artist">Jonas Brothers</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="104">
+        <img src="cd/jumper.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Jumper</div>
+            <div class="cd-artist">Third Eye Blind</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="105">
+        <img src="cd/just_like_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Just Like You</div>
+            <div class="cd-artist">Allison Iraheta</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="106">
+        <img src="cd/kids.jpg">
+        <div class="cd-info">
+            <div class="cd-title">K.I.D.S. (Kickin Incredibly Dope Shit)</div>
+            <div class="cd-artist">Mac Miller</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="107">
+        <img src="cd/keep_on.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Keep On</div>
+            <div class="cd-artist">No Authority</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="108">
+        <img src="cd/kid_krow.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Kid Krow</div>
+            <div class="cd-artist">Conan Gray</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="109">
+        <img src="cd/kiss_me.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Kiss Me</div>
+            <div class="cd-artist">Sixpence None The Richer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="110">
+        <img src="cd/lateralus.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Lateralus</div>
+            <div class="cd-artist">Tool</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="111">
+        <img src="cd/laundry_service.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Laundry Service</div>
+            <div class="cd-artist">Shakira</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="112">
+        <img src="cd/leather_jackets.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Leather Jackets</div>
+            <div class="cd-artist">Elton John</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="113">
+        <img src="cd/lets_go_bang.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Let's Go Bang</div>
+            <div class="cd-artist">Jennifer Love Hewitt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="114">
+        <img src="cd/little_nicky.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Little Nicky (Music From The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="115">
+        <img src="cd/livesos.jpg">
+        <div class="cd-info">
+            <div class="cd-title">LIVESOS</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="116">
+        <img src="cd/ludwig_van_beethoven_ii.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ludwig van Beethoven II 1770-1827</div>
+            <div class="cd-artist">Ludwig van Beethoven</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="117">
+        <img src="cd/mad_season.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Mad Season</div>
+            <div class="cd-artist">Matchbox Twenty</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="118">
+        <img src="cd/made_in_the_am.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Made In The A.M.</div>
+            <div class="cd-artist">One Direction</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="119">
+        <img src="cd/make_believe.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Make Believe</div>
+            <div class="cd-artist">Weezer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="120">
+        <img src="cd/make_yourself.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Make Yourself</div>
+            <div class="cd-artist">Incubus</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="121">
+        <img src="cd/manic.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Manic</div>
+            <div class="cd-artist">Halsey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="122">
+        <img src="cd/men_in_black.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Men In Black (The Album)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="123">
+        <img src="cd/menudo.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Menudo</div>
+            <div class="cd-artist">Menudo</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="124">
+        <img src="cd/metamorphosis.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Metamorphosis</div>
+            <div class="cd-artist">Hilary Duff</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="125">
+        <img src="cd/meteora.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Meteora</div>
+            <div class="cd-artist">Linkin Park</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="126">
+        <img src="cd/midnight_memories.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Midnight Memories</div>
+            <div class="cd-artist">One Direction</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="127">
+        <img src="cd/missing.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Missing (The Full Remix EP)</div>
+            <div class="cd-artist">Everything But The Girl</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="128">
+        <img src="cd/monkey_business.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Monkey Business</div>
+            <div class="cd-artist">Black Eyed Peas</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="129">
+        <img src="cd/mtv_unplugged.jpg">
+        <div class="cd-info">
+            <div class="cd-title">MTV Unplugged</div>
+            <div class="cd-artist">Nirvana</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="130">
+        <img src="cd/music_from_light_it_up.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music From & Inspired By Light It Up The Movie</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="131">
+        <img src="cd/music_from_mi2.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music From And Inspired By M:I-2</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="132">
+        <img src="cd/music_from_the_oc_mix_1.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music From The OC: Mix 1</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="133">
+        <img src="cd/music_of_my_heart.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music Of My Heart</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="134">
+        <img src="cd/music_of_the_heart_album.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music Of The Heart (The Album)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="135">
+        <img src="cd/music_sampler.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music Sampler</div>
+            <div class="cd-artist">Hoobastank</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="136">
+        <img src="cd/music_with_attitude_volume_69.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Music With Attitude - Volume 69</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="137">
+        <img src="cd/my_name_is_joe.jpg">
+        <div class="cd-info">
+            <div class="cd-title">My Name Is Joe</div>
+            <div class="cd-artist">Joe</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="138">
+        <img src="cd/my_own_prison.jpg">
+        <div class="cd-info">
+            <div class="cd-title">My Own Prison</div>
+            <div class="cd-artist">Creed</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="139">
+        <img src="cd/nevermind.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Nevermind</div>
+            <div class="cd-artist">Nirvana</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="140">
+        <img src="cd/new_found_glory.jpg">
+        <div class="cd-info">
+            <div class="cd-title">New Found Glory</div>
+            <div class="cd-artist">New Found Glory</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="141">
+        <img src="cd/no_name_face.jpg">
+        <div class="cd-info">
+            <div class="cd-title">No Name Face</div>
+            <div class="cd-artist">Lifehouse</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="142">
+        <img src="cd/no_need_to_argue.jpg">
+        <div class="cd-info">
+            <div class="cd-title">No Need To Argue</div>
+            <div class="cd-artist">The Cranberries</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="143">
+        <img src="cd/no_strings_attached.jpg">
+        <div class="cd-info">
+            <div class="cd-title">No Strings Attached</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="144">
+        <img src="cd/no_strings_attached_special_edition.jpg">
+        <div class="cd-info">
+            <div class="cd-title">No Strings Attached (Special Edition)</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="145">
+        <img src="cd/now_29.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Now That's What I Call Music! 29</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="146">
+        <img src="cd/now_50.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Now That's What I Call Music! 50</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="147">
+        <img src="cd/oasis.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Oasis</div>
+            <div class="cd-artist">J. Balvin</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="148">
+        <img src="cd/ocean_avenue.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ocean Avenue</div>
+            <div class="cd-artist">Yellowcard</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="149">
+        <img src="cd/on_the_6.jpg">
+        <div class="cd-info">
+            <div class="cd-title">On The 6</div>
+            <div class="cd-artist">Jennifer Lopez</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="150">
+        <img src="cd/oops_i_did_it_again.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Oops!...I Did It Again</div>
+            <div class="cd-artist">Britney Spears</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="151">
+        <img src="cd/pachelbel_canon.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pachelbel Canon (Baroque Favorites)</div>
+            <div class="cd-artist">Johann Pachelbel</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="152">
+        <img src="cd/paper_towns.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Paper Towns</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="153">
+        <img src="cd/party_tyme_karaoke_girl_pop_2.jpg">
+        <div class="cd-info">
+            <div class="cd-title">party tyme karaoke: girl pop 2</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="154">
+        <img src="cd/pieces_of_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pieces Of You</div>
+            <div class="cd-artist">Jewel</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="155">
+        <img src="cd/please_please_me.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Please Please Me</div>
+            <div class="cd-artist">The Beatles</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="156">
+        <img src="cd/pokemon_2ba_master.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pokémon - 2.B.A. Master</div>
+            <div class="cd-artist">John Loeffler</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="157">
+        <img src="cd/pokemon_the_first_movie.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pokémon The First Movie (Music From And Inspired By The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="158">
+        <img src="cd/pretty_in_pink.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pretty In Pink - The Original Motion Picture Soundtrack</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="159">
+        <img src="cd/pulp_fiction.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Pulp Fiction (Music From The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="160">
+        <img src="cd/reanimation.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Reanimation</div>
+            <div class="cd-artist">Linkin Park</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="161">
+        <img src="cd/ricky_martin.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ricky Martin</div>
+            <div class="cd-artist">Ricky Martin</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="162">
+        <img src="cd/riot.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Riot!</div>
+            <div class="cd-artist">Paramore</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="163">
+        <img src="cd/room_93.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Room 93</div>
+            <div class="cd-artist">Halsey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="164">
+        <img src="cd/room_under_the_stairs.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Room Under The Stairs</div>
+            <div class="cd-artist">ZAYN</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="165">
+        <img src="cd/saratoga_new_york.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Saratoga, New York - August 27, 2000</div>
+            <div class="cd-artist">Pearl Jam</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="166">
+        <img src="cd/scum_fuck_flower_boy.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Scum Fuck Flower Boy</div>
+            <div class="cd-artist">Tyler, The Creator</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="167">
+        <img src="cd/she_looks_so_perfect.jpg">
+        <div class="cd-info">
+            <div class="cd-title">She Looks So Perfect (US Tour Edition)</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="168">
+        <img src="cd/shes_kinda_hot.jpg">
+        <div class="cd-info">
+            <div class="cd-title">She's Kinda Hot</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="169">
+        <img src="cd/simple_kind_of_life.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Simple Kind Of Life</div>
+            <div class="cd-artist">No Doubt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="170">
+        <img src="cd/sleepless_in_seattle.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Sleepless In Seattle (Original Motion Picture Soundtrack)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="171">
+        <img src="cd/smithereens.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Smithereens</div>
+            <div class="cd-artist">Joji</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="172">
+        <img src="cd/something_like_human.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Something Like Human</div>
+            <div class="cd-artist">Fuel</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="173">
+        <img src="cd/somewhere_new.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Somewhere New</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="174">
+        <img src="cd/songs_from_an_american_movie.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Songs From An American Movie Vol. One: Learning How To Smile</div>
+            <div class="cd-artist">Everclear</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="175">
+        <img src="cd/sooner_or_later.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Sooner Or Later</div>
+            <div class="cd-artist">BBMAK</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="176">
+        <img src="cd/sounds_good_feels_good.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Sounds Good Feels Good</div>
+            <div class="cd-artist">5 Seconds Of Summer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="177">
+        <img src="cd/south_side.jpg">
+        <div class="cd-info">
+            <div class="cd-title">South Side</div>
+            <div class="cd-artist">Moby</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="178">
+        <img src="cd/space_jam.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Space Jam (Music From And Inspired By The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="179">
+        <img src="cd/spice.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Spice</div>
+            <div class="cd-artist">Spice Girls</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="180">
+        <img src="cd/spiceworld.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Spiceworld</div>
+            <div class="cd-artist">Spice Girls</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="181">
+        <img src="cd/spider_man.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Spider-Man (Music From And Inspired By)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="182">
+        <img src="cd/star_wars_a_new_hope.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Star Wars (A New Hope) (The Original Motion Picture Soundtrack)</div>
+            <div class="cd-artist">John Williams</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="183">
+        <img src="cd/stay_the_same.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Stay The Same</div>
+            <div class="cd-artist">Joey McIntyre</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="184">
+        <img src="cd/suddenly_30.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Suddenly 30 - Music From The Motion Picture</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="185">
+        <img src="cd/summer_girls.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Summer Girls</div>
+            <div class="cd-artist">Lyte Funkie Ones</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="186">
+        <img src="cd/survivor.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Survivor</div>
+            <div class="cd-artist">Destiny's Child</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="187">
+        <img src="cd/take_me_home.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Take Me Home (Limited Yearbook Edition)</div>
+            <div class="cd-artist">One Direction</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="188">
+        <img src="cd/teenage_mutant_ninja_turtles.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Teenage Mutant Ninja Turtles: Music From The Motion Picture</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="189">
+        <img src="cd/ten_years_and_running.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ten Years And Running</div>
+            <div class="cd-artist">MxPx</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="190">
+        <img src="cd/thank_god_i_found_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Thank God I Found You</div>
+            <div class="cd-artist">Mariah Carey</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="191">
+        <img src="cd/thankful.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Thankful</div>
+            <div class="cd-artist">Kelly Clarkson</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="192">
+        <img src="cd/thats_the_spirit.jpg">
+        <div class="cd-info">
+            <div class="cd-title">That's The Spirit</div>
+            <div class="cd-artist">Bring Me The Horizon</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="193">
+        <img src="cd/the_nsync_star_profile.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The 'N-Sync Star Profile</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="194">
+        <img src="cd/the_bends.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Bends</div>
+            <div class="cd-artist">Radiohead</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="195">
+        <img src="cd/the_best_damn_thing.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Best Damn Thing</div>
+            <div class="cd-artist">Avril Lavigne</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="196">
+        <img src="cd/the_better_life.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Better Life</div>
+            <div class="cd-artist">3 Doors Down</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="197">
+        <img src="cd/the_bridge.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Bridge</div>
+            <div class="cd-artist">Ace Of Base</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="198">
+        <img src="cd/the_essential_michael_jackson.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Essential Michael Jackson</div>
+            <div class="cd-artist">Michael Jackson</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="199">
+        <img src="cd/the_family_jewels.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Family Jewels</div>
+            <div class="cd-artist">Marina & The Diamonds</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="200">
+        <img src="cd/the_final_riot.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Final Riot!</div>
+            <div class="cd-artist">Paramore</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="201">
+        <img src="cd/the_history_of_things_to_come.jpg">
+        <div class="cd-info">
+            <div class="cd-title">the history of things to come…</div>
+            <div class="cd-artist">insult to tradition</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="202">
+        <img src="cd/the_lonely_position_of_neutral.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Lonely Position Of Neutral</div>
+            <div class="cd-artist">Trust Company</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="203">
+        <img src="cd/the_pledge_of_allegiance_tour.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Pledge Of Allegiance Tour</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="204">
+        <img src="cd/the_princess_diaries.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Princess Diaries Original Soundtrack</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="205">
+        <img src="cd/the_resistance.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Resistance</div>
+            <div class="cd-artist">Muse</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="206">
+        <img src="cd/the_young_and_the_hopeless.jpg">
+        <div class="cd-info">
+            <div class="cd-title">The Young And The Hopeless</div>
+            <div class="cd-artist">Good Charlotte</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="207">
+        <img src="cd/third_eye_blind.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Third Eye Blind</div>
+            <div class="cd-artist">Third Eye Blind</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="208">
+        <img src="cd/ti_amo.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ti Amo</div>
+            <div class="cd-artist">Phoenix</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="209">
+        <img src="cd/to_record_only_water_for_ten_days.jpg">
+        <div class="cd-info">
+            <div class="cd-title">To Record Only Water For Ten Days</div>
+            <div class="cd-artist">John Frusciante</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="210">
+        <img src="cd/to_the_5_boroughs.jpg">
+        <div class="cd-info">
+            <div class="cd-title">To The 5 Boroughs</div>
+            <div class="cd-artist">Beastie Boys</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="211">
+        <img src="cd/tragic_kingdom.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Tragic Kingdom</div>
+            <div class="cd-artist">No Doubt</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="212">
+        <img src="cd/u_drive_me_crazy.jpg">
+        <div class="cd-info">
+            <div class="cd-title">U Drive Me Crazy</div>
+            <div class="cd-artist">*NSYNC</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="213">
+        <img src="cd/ultimate.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Ultimate</div>
+            <div class="cd-artist">C + C Music Factory</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="214">
+        <img src="cd/un_verano_sin_ti.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Un Verano Sin Ti</div>
+            <div class="cd-artist">Bad Bunny</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="215">
+        <img src="cd/underclass_hero.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Underclass Hero</div>
+            <div class="cd-artist">Sum 41</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="216">
+        <img src="cd/untouchables.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Untouchables</div>
+            <div class="cd-artist">Korn</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="217">
+        <img src="cd/up_all_night.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Up All Night</div>
+            <div class="cd-artist">One Direction</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="218">
+        <img src="cd/varsity_blues.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Varsity Blues (Music From And Inspired By The Motion Picture)</div>
+            <div class="cd-artist">Various</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="219">
+        <img src="cd/wake_up_and_its_over.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Wake Up & It's Over</div>
+            <div class="cd-artist">Lovejoy</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="220">
+        <img src="cd/walls.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Walls</div>
+            <div class="cd-artist">Louis Tomlinson</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="221">
+        <img src="cd/was_it_something_i_didnt_say.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Was It Something I Didn't Say</div>
+            <div class="cd-artist">98 Degrees</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="222">
+        <img src="cd/we_were_dead_before_the_ship_even_sank.jpg">
+        <div class="cd-info">
+            <div class="cd-title">We Were Dead Before The Ship Even Sank</div>
+            <div class="cd-artist">Modest Mouse</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="223">
+        <img src="cd/weezer.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Weezer</div>
+            <div class="cd-artist">Weezer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="224">
+        <img src="cd/what_is_love.jpg">
+        <div class="cd-info">
+            <div class="cd-title">What Is Love?</div>
+            <div class="cd-artist">Never Shout Never</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="225">
+        <img src="cd/when_harry_met_sally.jpg">
+        <div class="cd-info">
+            <div class="cd-title">When Harry Met Sally... (Music From The Motion Picture)</div>
+            <div class="cd-artist">Harry Connick, Jr.</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="226">
+        <img src="cd/when_we_all_fall_asleep.jpg">
+        <div class="cd-info">
+            <div class="cd-title">When We All Fall Asleep, Where Do We Go?</div>
+            <div class="cd-artist">Billie Eilish</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="227">
+        <img src="cd/who_killed_amanda_palmer.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Who Killed Amanda Palmer</div>
+            <div class="cd-artist">Amanda Palmer</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="228">
+        <img src="cd/who_let_the_dogs_out.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Who Let The Dogs Out</div>
+            <div class="cd-artist">Baha Men</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="229">
+        <img src="cd/with_love_and_squalor.jpg">
+        <div class="cd-info">
+            <div class="cd-title">With Love And Squalor</div>
+            <div class="cd-artist">We Are Scientists</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="230">
+        <img src="cd/wonder_whats_next.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Wonder What's Next</div>
+            <div class="cd-artist">Chevelle</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="231">
+        <img src="cd/world_wrestling_federation.jpg">
+        <div class="cd-info">
+            <div class="cd-title">World Wrestling Federation: The Music Volume 4</div>
+            <div class="cd-artist">James A. Johnston</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="232">
+        <img src="cd/xy.jpg">
+        <div class="cd-info">
+            <div class="cd-title">X&Y</div>
+            <div class="cd-artist">Coldplay</div>
+        </div>
+    </div>
+    <div class="cd-item hidden" data-index="233">
+        <img src="cd/yourself_or_someone_like_you.jpg">
+        <div class="cd-info">
+            <div class="cd-title">Yourself Or Someone Like You</div>
+            <div class="cd-artist">Matchbox Twenty</div>
+        </div>
+    </div>
+</div>
+                            
+                            <button class="carousel-nav next" onclick="scrollCarousel(1)">›</button>
+                        </div>
+                        
+                        <div class="carousel-counter">
+                            <span id="currentCD">1</span> of <span id="totalCDs">234</span>
+                        </div>
+                        
+                        <p style="margin-top: 15px;">
+                            <a href="music/listOfCollection.pdf" id="list" target="_blank">View Full Collection PDF</a>
+                        </p>
+                    </div>
 
+                    <div id="flex">
+                        <div>
+                        <img src="images/songs.png">
+                            <p>here are some songs ive been <br>listening to a lot</p>
+                            <p>[May 2025]</p>
+                        </div>
+                        <div>
+                        <img src="music/june25.png">
+                            <p>MORE songs i've been loving. been into something called shoegaze. <br>idk what that means. spotify told me thats the genre. <br>i should probably look that up before someone <br>calls me a poser. idk sorry, its cool tho</p>
+                            <p>[June 2025]</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,5 +2012,62 @@
         <script type="text/javascript" src="https://www.scmplayer.net/script.js" 
         data-config="{'skin':'skins/aquaBlue/skin.css','volume':50,'autoplay':false,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':true,'playlist':[{'title':'tekken beach stage','url':'https://www.youtube.com/watch?v=T093v2hYWL8'}]}" ></script>
         <!-- SCM Music Player script end -->
+
+        <script>
+            let currentIndex = 0;
+            const totalItems = 234;
+
+            function updateCarousel() {
+                const cdItems = document.querySelectorAll('.cd-item');
+                
+                cdItems.forEach((item, index) => {
+                    item.classList.remove('center', 'left-1', 'left-2', 'left-3', 'right-1', 'right-2', 'right-3', 'hidden');
+                    
+                    const relativePos = index - currentIndex;
+                    
+                    if (relativePos === 0) {
+                        item.classList.add('center');
+                    } else if (relativePos === -1 || relativePos === totalItems - 1) {
+                        item.classList.add('left-1');
+                    } else if (relativePos === -2 || relativePos === totalItems - 2) {
+                        item.classList.add('left-2');
+                    } else if (relativePos === -3 || relativePos === totalItems - 3) {
+                        item.classList.add('left-3');
+                    } else if (relativePos === 1 || relativePos === -(totalItems - 1)) {
+                        item.classList.add('right-1');
+                    } else if (relativePos === 2 || relativePos === -(totalItems - 2)) {
+                        item.classList.add('right-2');
+                    } else if (relativePos === 3 || relativePos === -(totalItems - 3)) {
+                        item.classList.add('right-3');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+                
+                document.getElementById('currentCD').textContent = currentIndex + 1;
+                document.getElementById('totalCDs').textContent = totalItems;
+            }
+
+            function scrollCarousel(direction) {
+                currentIndex = (currentIndex + direction + totalItems) % totalItems;
+                updateCarousel();
+            }
+
+            function jumpToCD(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            updateCarousel();
+
+            document.querySelectorAll('.cd-item').forEach((item, index) => {
+                item.addEventListener('click', () => jumpToCD(index));
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') scrollCarousel(-1);
+                if (e.key === 'ArrowRight') scrollCarousel(1);
+            });
+        </script>
     </body>
 </html>
